@@ -1,0 +1,11 @@
+/appsettings.Development.json
+node_modules/
+snippets/*.js
+src/*.js
+wwwroot/css/main.*.css
+wwwroot/index.html
+wwwroot/main.*.js
+.vs/*
+bin
+obj
+ProjectTracker.db
