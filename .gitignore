@@ -8,4 +8,4 @@ wwwroot/main.*.js
 .vs/*
 bin
 obj
-ProjectTracker.db
+OdataNet6Training.db
