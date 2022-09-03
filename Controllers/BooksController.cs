@@ -10,11 +10,11 @@ using OData_webapi_netcore6.Services;
 
 namespace OData_webapi_netcore6.Controllers
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
-    public class BooksController : ODataController //ControllerBase
+    [ApiExplorerSettings(IgnoreApi = false)]
+    public class BooksController : ODataController
     {
         private readonly OdataNet6TutorialContext odataNet6CoreDBContext;
+        private readonly IConfiguration configuration;
 
         public BooksController(OdataNet6TutorialContext context)
         {
@@ -22,7 +22,7 @@ namespace OData_webapi_netcore6.Controllers
         }
 
         [HttpGet]
-        [EnableQuery]
+        [EnableQuery(PageSize = 2)]
         public ActionResult<IQueryable<Books>> Get()
         {
             return this.Ok(this.odataNet6CoreDBContext.Books

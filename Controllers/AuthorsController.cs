@@ -11,9 +11,8 @@ using OData_webapi_netcore6.Services;
 
 namespace OData_webapi_netcore6.Controllers
 {
-    //[Route("api/[controller]")]
-    //[ApiController]
-    public class AuthorsController : ODataController //ControllerBase
+    [ApiExplorerSettings(IgnoreApi = false)]
+    public class AuthorsController : ODataController
     {
         private readonly OdataNet6TutorialContext odataNet6CoreDBContext;
 
@@ -27,13 +26,18 @@ namespace OData_webapi_netcore6.Controllers
         /// </summary>
         /// <returns>Returned all Authors</returns>
         [HttpGet]
-        [EnableQuery]
+        [EnableQuery(PageSize = 2)]
         public ActionResult<IQueryable<Authors>> Get()
         {
             return this.Ok(this.odataNet6CoreDBContext.Authors
                 .AsNoTracking());
         }
 
+        /// <summary>
+        /// Retrieves a specific Author
+        /// </summary>
+        /// <param name="key">ContactGuid</param>
+        /// <returns>A specific Author is returned</returns>
         [HttpGet]
         [EnableQuery]
         public SingleResult<Authors> Get([FromODataUri] Guid key)
