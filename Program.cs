@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.OData;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.Edm;
 using Microsoft.OData.ModelBuilder;
 using OData_webapi_netcore6.Models;
@@ -33,7 +34,8 @@ builder.Services
     });
 
 // -- DATABASE --
-builder.Services.AddDbContext<OdataNet6TutorialContext>();
+builder.Services.AddDbContext<OdataNet6TutorialContext>(options =>
+    options.UseSqlite($"{builder.Configuration["ConnectionStrings:SQLiteConnection"]}"));
 
 builder.Services.AddSingleton<DefaultSkipTokenHandler>();
 
