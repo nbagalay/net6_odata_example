@@ -68,11 +68,19 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpPatch]
         [EnableQuery]
-        public async Task<IActionResult> Patch([FromODataUri] Guid key, Delta<Authors> authors)
+        public async Task<IActionResult> Patch([FromODataUri] Guid key, Delta<Authors> authors, ODataQueryOptions<Authors> options)
         {
             if (!this.ModelState.IsValid)
             {
                 return this.BadRequest(this.ModelState);
+            }
+
+            // eTag Validation (ConcurrencyCheck)
+            if (options.IfMatch != null &&
+                !(options.IfMatch.ApplyTo(this.odataNet6CoreDBContext.Authors.Where(t => t.Guid == key))
+                as IQueryable<Authors>).Any())
+            {
+                return this.StatusCode(412); //PRE CONDITION FAIL
             }
 
             var entity = await this.odataNet6CoreDBContext.Authors.FindAsync(key);

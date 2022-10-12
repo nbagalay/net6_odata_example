@@ -43,7 +43,14 @@ builder.Services.AddSingleton<DefaultSkipTokenHandler>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
-    c.SwaggerDoc("odata", new() { Title = "ODataTutorial", Version = "v1" });
+    c.SwaggerDoc("odata", new() { 
+        Title = "ODataTutorial", 
+        Description = "NET 6 Odata Sample Created by Nick Bagalay" +
+        "<br>" +
+        "![ER Diagram](https://yuml.me/diagram/class/[Authors{bg:orange}],[Authors]-*>[Books{bg:orange}],[Books{bg:orange}],[Books]-0..1>[Authors{bg:orange}],[Authors{bg:dodgerblue}]++-*>[Authors],[Books{bg:dodgerblue}]++-*>[Books])\n" +
+        "<br><b>Legend</b><br>" +
+        "![Legend](https://yuml.me/diagram/plain;dir:TB;scale:75/class/[External.Type{bg:whitesmoke}],[ComplexType],[EntityType{bg:orange}],[EntitySet/Singleton/Operation{bg:dodgerblue}])",
+        Version = "v1" });
 
     // using System.Reflection;
     var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";

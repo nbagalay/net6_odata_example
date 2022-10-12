@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace OData_webapi_netcore6.Migrations
+namespace OData_webapi_netcore6.Migrations.SQLite
 {
-    public partial class initiL : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,11 @@ namespace OData_webapi_netcore6.Migrations
                     AuthorGuid = table.Column<Guid>(type: "TEXT", nullable: false),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     HomeState = table.Column<string>(type: "TEXT", nullable: false),
-                    Genre = table.Column<string>(type: "TEXT", nullable: false)
+                    Genre = table.Column<string>(type: "TEXT", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    ModifiedDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    ModifiedBy = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -28,10 +32,14 @@ namespace OData_webapi_netcore6.Migrations
                 columns: table => new
                 {
                     BookGuid = table.Column<Guid>(type: "TEXT", nullable: false),
-                    AuthorGuid = table.Column<Guid>(type: "TEXT", nullable: true),
+                    AuthorGuid = table.Column<Guid>(type: "TEXT", nullable: false),
                     Title = table.Column<string>(type: "TEXT", nullable: false),
                     PublishYear = table.Column<int>(type: "INTEGER", nullable: false),
-                    CopiesSold = table.Column<int>(type: "INTEGER", nullable: false)
+                    CopiesSold = table.Column<int>(type: "INTEGER", nullable: false),
+                    CreatedDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    ModifiedDate = table.Column<DateTimeOffset>(type: "TEXT", nullable: false),
+                    CreatedBy = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true),
+                    ModifiedBy = table.Column<string>(type: "TEXT", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,7 +48,8 @@ namespace OData_webapi_netcore6.Migrations
                         name: "FK_Books_Authors_AuthorGuid",
                         column: x => x.AuthorGuid,
                         principalTable: "Authors",
-                        principalColumn: "AuthorGuid");
+                        principalColumn: "AuthorGuid",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

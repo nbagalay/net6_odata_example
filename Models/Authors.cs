@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OData_webapi_netcore6.Models
 {
-    public class Authors
+    public class Authors : CoreEntity
     {
         [Key]
         [Column("AuthorGuid")]
