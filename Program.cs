@@ -34,8 +34,7 @@ builder.Services
     });
 
 // -- DATABASE --
-builder.Services.AddDbContext<OdataNet6TutorialContext>(options =>
-    options.UseSqlite($"{builder.Configuration["ConnectionStrings:SQLiteConnection"]}"));
+builder.Services.AddDbContext<OdataNet6TutorialContext>();
 
 builder.Services.AddSingleton<DefaultSkipTokenHandler>();
 

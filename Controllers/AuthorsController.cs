@@ -76,9 +76,10 @@ namespace OData_webapi_netcore6.Controllers
             }
 
             // eTag Validation (ConcurrencyCheck)
-            if (options.IfMatch != null &&
+            if ((options.IfMatch != null &&
                 !(options.IfMatch.ApplyTo(this.odataNet6CoreDBContext.Authors.Where(t => t.Guid == key))
-                as IQueryable<Authors>).Any())
+                as IQueryable<Authors>).Any()) ||
+                options.IfMatch == null)
             {
                 return this.StatusCode(412); //PRE CONDITION FAIL
             }
