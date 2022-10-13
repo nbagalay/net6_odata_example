@@ -1,0 +1,253 @@
+{
+	"info": {
+		"_postman_id": "4a25bd12-1d11-4de1-84d5-d847adafd2ed",
+		"name": "Authos and Books - NET 6 OData Sample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Metadata",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7298/odata/$metadata",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7298",
+					"path": [
+						"odata",
+						"$metadata"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Authors",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7298/odata/Authors?$count=true&$expand=Books",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7298",
+					"path": [
+						"odata",
+						"Authors"
+					],
+					"query": [
+						{
+							"key": "$count",
+							"value": "true"
+						},
+						{
+							"key": "$expand",
+							"value": "Books"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Authors",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7298/odata/Authors?$count=true&$expand=Books",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7298",
+							"path": [
+								"odata",
+								"Authors"
+							],
+							"query": [
+								{
+									"key": "$count",
+									"value": "true"
+								},
+								{
+									"key": "$expand",
+									"value": "Books"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; odata.metadata=minimal; odata.streaming=true"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 13 Oct 2022 00:01:59 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "OData-Version",
+							"value": "4.0"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"@odata.context\": \"https://localhost:7298/odata/$metadata#Authors(Books())\",\n    \"@odata.count\": 2,\n    \"value\": [\n        {\n            \"@odata.etag\": \"W/\\\"MjAyMi0xMC0xMlQyMDoxNjo0NC45ODAxNzk3Wg==\\\"\",\n            \"Guid\": \"6f106294-7919-4434-a123-17f8648d5996\",\n            \"Name\": \"Nick\",\n            \"HomeState\": \"MI\",\n            \"Genre\": \"Horror\",\n            \"CreatedDate\": \"2022-10-12T20:16:44.9801796Z\",\n            \"ModifiedDate\": \"2022-10-12T20:16:44.9801797Z\",\n            \"CreatedBy\": \"test\",\n            \"ModifiedBy\": \"test\",\n            \"Books\": []\n        },\n        {\n            \"@odata.etag\": \"W/\\\"MjAyMi0xMC0xMlQyMDoxNjoyNC4zMTE0ODc3Wg==\\\"\",\n            \"Guid\": \"e8a8714c-182a-4873-990e-56745b21b270\",\n            \"Name\": \"Sherri\",\n            \"HomeState\": \"CA\",\n            \"Genre\": \"Romance\",\n            \"CreatedDate\": \"2022-10-12T20:16:24.3114873Z\",\n            \"ModifiedDate\": \"2022-10-12T20:16:24.3114877Z\",\n            \"CreatedBy\": \"test\",\n            \"ModifiedBy\": \"test\",\n            \"Books\": [\n                {\n                    \"@odata.etag\": \"W/\\\"MjAyMi0xMC0xMlQyMDoxNjozMy4wNDQyNTAyWg==\\\"\",\n                    \"Guid\": \"bc66dd19-d617-4c33-ae36-ecfd813e76dd\",\n                    \"AuthorGuid\": \"e8a8714c-182a-4873-990e-56745b21b270\",\n                    \"Title\": \"Awesome Sauce Romance\",\n                    \"PublishYear\": 2022,\n                    \"CopiesSold\": 2,\n                    \"CreatedDate\": \"2022-10-12T20:16:33.0442499Z\",\n                    \"ModifiedDate\": \"2022-10-12T20:16:33.0442502Z\",\n                    \"CreatedBy\": \"test\",\n                    \"ModifiedBy\": \"test\"\n                }\n            ]\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "Create Author",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"Name\": \"Nick\",\r\n   \"HomeState\": \"MI\",\r\n   \"Genre\": \"Horror\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7298/odata/Authors",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7298",
+					"path": [
+						"odata",
+						"Authors"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Author - Single",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7298/odata/Authors(e8a8714c-182a-4873-990e-56745b21b270)?$expand=Books",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7298",
+					"path": [
+						"odata",
+						"Authors(e8a8714c-182a-4873-990e-56745b21b270)"
+					],
+					"query": [
+						{
+							"key": "$expand",
+							"value": "Books"
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Author - Single",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7298/odata/Authors(e8a8714c-182a-4873-990e-56745b21b270)?$expand=Books",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7298",
+							"path": [
+								"odata",
+								"Authors(e8a8714c-182a-4873-990e-56745b21b270)"
+							],
+							"query": [
+								{
+									"key": "$expand",
+									"value": "Books"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; odata.metadata=minimal; odata.streaming=true"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 13 Oct 2022 00:02:19 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Kestrel"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						},
+						{
+							"key": "OData-Version",
+							"value": "4.0"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"@odata.context\": \"https://localhost:7298/odata/$metadata#Authors(Books())/$entity\",\n    \"@odata.etag\": \"W/\\\"MjAyMi0xMC0xMlQyMDoxNjoyNC4zMTE0ODc3Wg==\\\"\",\n    \"Guid\": \"e8a8714c-182a-4873-990e-56745b21b270\",\n    \"Name\": \"Sherri\",\n    \"HomeState\": \"CA\",\n    \"Genre\": \"Romance\",\n    \"CreatedDate\": \"2022-10-12T20:16:24.3114873Z\",\n    \"ModifiedDate\": \"2022-10-12T20:16:24.3114877Z\",\n    \"CreatedBy\": \"test\",\n    \"ModifiedBy\": \"test\",\n    \"Books\": [\n        {\n            \"@odata.etag\": \"W/\\\"MjAyMi0xMC0xMlQyMDoxNjozMy4wNDQyNTAyWg==\\\"\",\n            \"Guid\": \"bc66dd19-d617-4c33-ae36-ecfd813e76dd\",\n            \"AuthorGuid\": \"e8a8714c-182a-4873-990e-56745b21b270\",\n            \"Title\": \"Awesome Sauce Romance\",\n            \"PublishYear\": 2022,\n            \"CopiesSold\": 2,\n            \"CreatedDate\": \"2022-10-12T20:16:33.0442499Z\",\n            \"ModifiedDate\": \"2022-10-12T20:16:33.0442502Z\",\n            \"CreatedBy\": \"test\",\n            \"ModifiedBy\": \"test\"\n        }\n    ]\n}"
+				}
+			]
+		},
+		{
+			"name": "New Book",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"AuthorGuid\": \"e8a8714c-182a-4873-990e-56745b21b270\",\r\n   \"Title\": \"Awesome Sauce Romance\",\r\n   \"PublishYear\": 2022,\r\n   \"CopiesSold\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7298/odata/Books",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7298",
+					"path": [
+						"odata",
+						"Books"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
