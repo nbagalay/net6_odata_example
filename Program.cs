@@ -104,7 +104,7 @@ builder.Services.AddAuthorization(o =>
 {
     /* --SPECIAL NOTE--
      * Depending on your Identity Provider (IP), 'SCOPES' tend to be a string (ex: 'read:authors write:authors'. Hopefully the IP
-     * will have an array. Auth0 has one called 'permissions' that breaks out the scopes into an array. c# needs this into an array. If
+     * will have an array. Auth0 has one called 'permissions' that breaks out the scopes into an array. C# needs this into an array. If
      * your IP doesn't have an array, you can use the line below to add the Scopes then uncomment the 
      * 'AddSingleton<IAuthorizationHandler, HasScopeHandler>()' to break the scopes out.
      */
@@ -117,7 +117,7 @@ builder.Services.AddAuthorization(o =>
 
     o.AddPolicy("write:authors", p => p.
         RequireAuthenticatedUser().
-        RequireClaim("permissions", "write:author"));
+        RequireClaim("permissions", "write:authors"));
 
     o.AddPolicy("read:books", p => p.
         RequireAuthenticatedUser().
