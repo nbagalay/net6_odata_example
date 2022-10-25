@@ -33,4 +33,11 @@ This is the 'first' release of this tutorial. We cover:
 Since this is the FIRST run, you'll need to Run the 'Update' EF Code in the Visual Studio Console so that the *.db file will be created.
 
 ### Part 2 Branch - Adding JWT Authentication to your OData Service
+In this release, we focused on hooking up Authentication using JWT Bearer tokens. For the demonstration of this model, we used Auth0. Auth0 is a identity provider took that uses JWT tokens to verify access (through scopes) to secure your application. You can set up a free account at auth0.com. The focus of this demonstration is to not walk through setting up Auth0 but how Jwt Tokens interact with our C# Application. In this release, we cover:
+
+* _Program.cs_: Added new service to use the Auth0 as the security provider. Added a new Nuget from Microsoft using *JwtToken.
+* _New Authorization Attribute on Controllers_: The attributes locks down the relative Http* pathway based on the scope(s) the user has permission to
+* _Added UserDetail on Record Change in Context_: In the first release you saw commented in the Context model a line getting the Create/Modified by account. We now support that and demonstrate that. Based on the user logged in, we stored in Program.cs the 'sub' account information (aka user name) and use that to be stored in our DB fields.
+
+### Part 3 Branch - Validation
 *Coming NEXT!*
