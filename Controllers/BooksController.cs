@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
@@ -10,6 +11,7 @@ using OData_webapi_netcore6.Services;
 
 namespace OData_webapi_netcore6.Controllers
 {
+    [Authorize]
     [ApiExplorerSettings(IgnoreApi = false)]
     public class BooksController : ODataController
     {
@@ -23,6 +25,7 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpGet]
         [EnableQuery(PageSize = 2)]
+        [Authorize("read:books")]
         public ActionResult<IQueryable<Books>> Get()
         {
             return this.Ok(this.odataNet6CoreDBContext.Books
@@ -31,6 +34,7 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpGet]
         [EnableQuery]
+        [Authorize("read:books")]
         public SingleResult<Books> Get([FromODataUri] Guid key)
         {
             var result = this.odataNet6CoreDBContext.Books.Where(c => c.Guid == key);
@@ -39,6 +43,7 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpPost]
         [EnableQuery]
+        [Authorize("write:books")]
         public async Task<ActionResult<Authors>> Post([FromBody] Books item)
         {
             if (!this.ModelState.IsValid)
@@ -59,6 +64,7 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpPatch]
         [EnableQuery]
+        [Authorize("write:books")]
         public async Task<IActionResult> Patch([FromODataUri] Guid key, Delta<Books> books, ODataQueryOptions<Books> options)
         {
             if (!this.ModelState.IsValid)
@@ -106,6 +112,7 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpDelete]
         [EnableQuery]
+        [Authorize("write:books")]
         public async Task<IActionResult> Delete([FromODataUri] Guid key)
         {
             try

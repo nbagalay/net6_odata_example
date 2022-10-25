@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.AspNetCore.OData.Formatter;
@@ -27,6 +28,7 @@ namespace OData_webapi_netcore6.Controllers
         /// <returns>Returned all Authors</returns>
         [HttpGet]
         [EnableQuery(PageSize = 2)]
+        [Authorize("read:authors")]
         public ActionResult<IQueryable<Authors>> Get()
         {
             return this.Ok(this.odataNet6CoreDBContext.Authors
@@ -40,6 +42,7 @@ namespace OData_webapi_netcore6.Controllers
         /// <returns>A specific Author is returned</returns>
         [HttpGet]
         [EnableQuery]
+        [Authorize("read:authors")]
         public SingleResult<Authors> Get([FromODataUri] Guid key)
         {
             var result = this.odataNet6CoreDBContext.Authors.Where(c => c.Guid == key);
@@ -48,6 +51,7 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpPost]
         [EnableQuery]
+        [Authorize("write:authors")]
         public async Task<ActionResult<Authors>> Post([FromBody] Authors item)
         {
             if (!this.ModelState.IsValid)
@@ -68,6 +72,7 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpPatch]
         [EnableQuery]
+        [Authorize("write:authors")]
         public async Task<IActionResult> Patch([FromODataUri] Guid key, Delta<Authors> authors, ODataQueryOptions<Authors> options)
         {
             if (!this.ModelState.IsValid)
@@ -115,6 +120,7 @@ namespace OData_webapi_netcore6.Controllers
 
         [HttpDelete]
         [EnableQuery]
+        [Authorize("write:authors")]
         public async Task<IActionResult> Delete([FromODataUri] Guid key)
         {
             try
